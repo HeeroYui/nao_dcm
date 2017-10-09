@@ -53,7 +53,7 @@ bool Nao::initialize()
                                     "Device/SubDeviceList/InertialSensor/AccelerometerX/Sensor/Value",
                                     "Device/SubDeviceList/InertialSensor/AccelerometerY/Sensor/Value",
                                     "Device/SubDeviceList/InertialSensor/AccelerometerZ/Sensor/Value"};
-    imu_names_ = vector<string>(imu, end(imu));
+    imu_names_ = vector<etk/String.hpp>(imu, end(imu));
 
     // Sonar Memory Keys
     const char* sonar[] = {"Device/SubDeviceList/US/Left/Sensor/Value",
@@ -76,7 +76,7 @@ bool Nao::initialize()
                                       "Device/SubDeviceList/US/Right/Sensor/Value7",
                                       "Device/SubDeviceList/US/Right/Sensor/Value8",
                                       "Device/SubDeviceList/US/Right/Sensor/Value9"};
-    sonar_names_ = vector<string>(sonar, end(sonar));
+    sonar_names_ = vector<etk/String.hpp>(sonar, end(sonar));
 
     // Foot Contact Memory Keys
     const char* fsr[] = {"Device/SubDeviceList/LFoot/FSR/FrontLeft/Sensor/Value",
@@ -93,7 +93,7 @@ bool Nao::initialize()
                                     "Device/SubDeviceList/LFoot/FSR/CenterOfPressure/Y/Sensor/Value",
                                     "Device/SubDeviceList/RFoot/FSR/CenterOfPressure/X/Sensor/Value",
                                     "Device/SubDeviceList/RFoot/FSR/CenterOfPressure/Y/Sensor/Value"};
-    fsr_names_ = vector<string>(fsr, end(fsr));
+    fsr_names_ = vector<etk/String.hpp>(fsr, end(fsr));
 
     // Tactile Memory Keys
     const char* tactile[] = {"Device/SubDeviceList/Head/Touch/Front/Sensor/Value",
@@ -105,19 +105,19 @@ bool Nao::initialize()
                                         "Device/SubDeviceList/RHand/Touch/Back/Sensor/Value",
                                         "Device/SubDeviceList/RHand/Touch/Left/Sensor/Value",
                                         "Device/SubDeviceList/RHand/Touch/Right/Sensor/Value"};
-    tactile_names_ = vector<string>(tactile, end(tactile));
+    tactile_names_ = vector<etk/String.hpp>(tactile, end(tactile));
 
     // Bumper Memory Keys
     const char* bumper[] = {"Device/SubDeviceList/LFoot/Bumper/Left/Sensor/Value",
                                        "Device/SubDeviceList/LFoot/Bumper/Right/Sensor/Value",
                                        "Device/SubDeviceList/RFoot/Bumper/Left/Sensor/Value",
                                        "Device/SubDeviceList/RFoot/Bumper/Right/Sensor/Value"};
-    bumper_names_ = vector<string>(bumper, end(bumper));
+    bumper_names_ = vector<etk/String.hpp>(bumper, end(bumper));
 
     // Battery Memory Keys
     const char* battery[] = {"Device/SubDeviceList/Battery/Charge/Sensor/Value",
                                         "Device/SubDeviceList/Battery/Temperature/Sensor/Value"};
-    battery_names_ = vector<string>(battery, end(battery));
+    battery_names_ = vector<etk/String.hpp>(battery, end(battery));
 
     // LED Memory Keys
     const char* led[] = {"Device/SubDeviceList/ChestBoard/Led/Blue/Actuator/Value",
@@ -209,7 +209,7 @@ bool Nao::initialize()
                                         "Device/SubDeviceList/RFoot/Led/Blue/Actuator/Value",
                                         "Device/SubDeviceList/RFoot/Led/Green/Actuator/Value",
                                         "Device/SubDeviceList/RFoot/Led/Red/Actuator/Value"};
-    led_names_ = vector<string>(led, end(led));
+    led_names_ = vector<etk/String.hpp>(led, end(led));
 
     // Joints Initialization
     const char* joint[] = {"HeadYaw",
@@ -238,9 +238,9 @@ bool Nao::initialize()
                             "RKneePitch",
                             "RAnklePitch",
                             "RAnkleRoll"};
-    joint_names_ = vector<string>(joint, end(joint));
+    joint_names_ = vector<etk/String.hpp>(joint, end(joint));
     
-    for(vector<string>::iterator it=joint_names_.begin();it!=joint_names_.end();it++)
+    for(vector<etk/String.hpp>::iterator it=joint_names_.begin();it!=joint_names_.end();it++)
     {
         if((*it=="RHand" || *it=="LHand" || *it == "RWristYaw" || *it == "LWristYaw") && (body_type_ == "H21"))
         {
@@ -248,10 +248,10 @@ bool Nao::initialize()
             it--;
             continue;
         }
-        joints_names_.push_back("Device/SubDeviceList/"+(*it)+"/Position/Sensor/Value");
+        joints_names_.pushBack("Device/SubDeviceList/"+(*it)+"/Position/Sensor/Value");
         if(*it!="RHipYawPitch")
         {
-            joint_temperature_names_.push_back("Device/SubDeviceList/"+(*it)+"/Temperature/Sensor/Value");
+            joint_temperature_names_.pushBack("Device/SubDeviceList/"+(*it)+"/Temperature/Sensor/Value");
         }
     }
     number_of_joints_ = joint_names_.size();
@@ -847,7 +847,7 @@ void Nao::publishBaseFootprint(const ros::Time &ts)
     }
 
     tf::Vector3 new_origin = (tf_odom_to_right_foot.getOrigin() + tf_odom_to_left_foot.getOrigin())/2.0;
-    double height = std::min(tf_odom_to_left_foot.getOrigin().getZ(), tf_odom_to_right_foot.getOrigin().getZ());
+    double height = etk::min(tf_odom_to_left_foot.getOrigin().getZ(), tf_odom_to_right_foot.getOrigin().getZ());
     new_origin.setZ(height);
 
     double roll, pitch, yaw;
@@ -1115,7 +1115,7 @@ void Nao::checkBattery(diagnostic_updater::DiagnosticStatusWrapper &stat)
         return;
     }
     int status = 0;
-    string message = "Battery: "+boost::lexical_cast<string>(float(batt[0])*100.0f)+"\% charged!  ";
+    string message = "Battery: "+boost::lexical_cast<etk/String.hpp>(float(batt[0])*100.0f)+"\% charged!  ";
     if(float(batt[0])*100.0f<50.0f)
         status = 1;
     else if(float(batt[0])*100.0f<20.0f)

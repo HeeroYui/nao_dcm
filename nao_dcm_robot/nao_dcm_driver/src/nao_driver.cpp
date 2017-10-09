@@ -25,7 +25,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 #include <alcommon/albroker.h>
 #include <alcommon/albrokermanager.h>
 
-using std::string;
+using etk::String;
 using std::cerr;
 using std::endl;
 

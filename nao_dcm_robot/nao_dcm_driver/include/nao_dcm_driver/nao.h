@@ -61,8 +61,8 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 
 #include <diagnostic_updater/diagnostic_updater.h>
 
-using std::string;
-using std::vector;
+using etk::String;
+using etk::Vector;
 
 namespace AL
 {
@@ -131,36 +131,36 @@ private:
     AL::DCMProxy dcm_proxy_;
 
     // IMU
-    vector<string> imu_names_;
+    vector<etk/String.hpp> imu_names_;
     // Sonars
-    vector<string> sonar_names_;
+    vector<etk/String.hpp> sonar_names_;
     // FSRs
-    vector<string> fsr_names_;
+    vector<etk/String.hpp> fsr_names_;
     // Tactile
-    vector<string> tactile_names_;
+    vector<etk/String.hpp> tactile_names_;
     // Bumper
-    vector<string> bumper_names_;
+    vector<etk/String.hpp> bumper_names_;
     // Joints
-    vector<string> joints_names_;
-    vector<string> joint_temperature_names_;
+    vector<etk/String.hpp> joints_names_;
+    vector<etk/String.hpp> joint_temperature_names_;
     // Battery
-    vector<string> battery_names_;
+    vector<etk/String.hpp> battery_names_;
     // LEDs
-    vector<string> led_names_;
+    vector<etk/String.hpp> led_names_;
 
     // Joint States
     hardware_interface::JointStateInterface jnt_state_interface_;
     hardware_interface::PositionJointInterface jnt_pos_interface_;
 
     int number_of_joints_;
-    vector<string> joint_names_;
+    vector<etk/String.hpp> joint_names_;
     vector<double> joint_commands_;
     vector<double> joint_angles_;
     vector<double> joint_velocities_;
     vector<double> joint_efforts_;
 public:
     // Constructor/Destructor
-    Nao(boost::shared_ptr<AL::ALBroker> broker, const std::string& name);
+    Nao(boost::shared_ptr<AL::ALBroker> broker, const etk::String& name);
     ~Nao();
 
     bool initialize();
@@ -188,10 +188,10 @@ public:
     // ALMemoryProxy Wrapper Methods
     void insertDataToMemory(const string& key, const AL::ALValue& value);
     AL::ALValue getDataFromMemory(const string& key);
-    void subscribeToEvent(const std::string& name, const std::string& callback_module,
-                          const std::string& callback_method);
-    void subscribeToMicroEvent(const std::string& name, const std::string& callback_module,
-                               const std::string& callback_method, const string& callback_message="");
+    void subscribeToEvent(const etk::String& name, const etk::String& callback_module,
+                          const etk::String& callback_method);
+    void subscribeToMicroEvent(const etk::String& name, const etk::String& callback_module,
+                               const etk::String& callback_method, const string& callback_message="");
     void unsubscribeFromEvent(const string& name, const string& callback_module);
     void unsubscribeFromMicroEvent(const string& name, const string& callback_module);
     void raiseEvent(const string& name, const AL::ALValue& value);

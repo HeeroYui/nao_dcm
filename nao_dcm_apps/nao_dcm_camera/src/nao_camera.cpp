@@ -23,7 +23,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 #include <iostream>
 #include "nao_dcm_camera/nao_camera.h"
 
-using std::vector;
+using etk::Vector;
 
 NaoCamera::NaoCamera(boost::shared_ptr<AL::ALBroker> broker, const string &name)
     : AL::ALModule(broker,name),is_connected_(false),reconfiguring_(false)

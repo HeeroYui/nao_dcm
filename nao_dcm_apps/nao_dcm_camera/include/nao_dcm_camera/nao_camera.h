@@ -49,7 +49,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 #include <dynamic_reconfigure/server.h>
 #include <nao_dcm_camera/NaoDCMCameraConfig.h>
 
-using std::string;
+using etk::String;
 using std::cerr;
 using std::endl;
 
@@ -92,7 +92,7 @@ private:
     AL::ALVideoDeviceProxy video_proxy_;
 public:
     // Constructor/Destructor
-    NaoCamera(boost::shared_ptr<AL::ALBroker> broker, const std::string& name);
+    NaoCamera(boost::shared_ptr<AL::ALBroker> broker, const etk::String& name);
     ~NaoCamera();
 
     bool initialize();
